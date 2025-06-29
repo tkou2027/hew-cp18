@@ -5,7 +5,7 @@
 * 80×25文字のWindowsコンソールで画面表示
 
 ## プレイ動画
-https://github.com/user-attachments/assets/a348d958-f2ba-4c97-8b99-28f9dff59198
+https://github.com/user-attachments/assets/dbb3460a-dd85-4214-8aa8-d529e9f6bf75
 
 ## 使用した素材
 ### 効果音
