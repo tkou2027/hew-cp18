@@ -45,6 +45,26 @@ https://github.com/user-attachments/assets/dbb3460a-dd85-4214-8aa8-d529e9f6bf75
 <img alt="freature_shadow_frames" src="doc/images/feature_silhouette_frames.png"  height="180">
 </p>
 
+## 実装
+
+> 開発当時はコンテスト向けにｃ言語のみを用いて短期間で制作したため、  
+> コードに整理が行き届いていない部分が多く、  現在は改善に取り組んでおります。
+
+マップ表示に関連するファイル
+
+* world.h ---- マップのデータを配列に保存する 
+
+  移動や当たり判定は3Dのワールド座標上で計算され、表示方法と独立している
+
+* world_view.h ---- マップの描画
+
+  * world_view_top.h ---- 正面視点の描画、計算が簡単
+  * world_view_raycast.h ---- 回転視点（マップ回転中）の描画、レイキャスティングで描画
+
+* cube.h ---- ブロックの色や柄の定義
+
+  * cube_top.h ---- 正面視点の一個のブロックを描画
+
 ## 使用した素材
 
 ### 効果音
