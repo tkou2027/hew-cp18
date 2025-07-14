@@ -8,9 +8,9 @@ namespace hoge
 	class SceneTitle : public Scene
 	{
 	public:
-		void Initialize();
-		void Update();
-		void Draw();
+		void Initialize() override;
+		void Update() override;
+		void Draw() override;
 	private:
 		std::unique_ptr<Sprite> m_title_text;
 	};

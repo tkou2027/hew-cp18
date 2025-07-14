@@ -1,15 +1,14 @@
-#include "application.h"
-
 #include <iostream>
+#include <memory>
+
+#include "application.h"
 int main(void)
 {
-	hoge::Application* app = new hoge::Application();
+	std::unique_ptr<hoge::Application> app = std::make_unique<hoge::Application>();
 
 	app->Initialize(L"title");
 	app->Run();
 	app->Finalize();
-
-	delete app;
 
 	std::cin.seekg(0);
 	std::cin.get();
