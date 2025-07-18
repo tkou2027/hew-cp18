@@ -52,8 +52,8 @@ namespace hoge
 
 	// for returning all info of a block
 	struct BlockInfo {
-		std::shared_ptr<Block> block;
-		std::shared_ptr<BlockPrototype> block_prototype;
-		Vec3 pos;
+		Block* block{ nullptr };
+		BlockPrototype block_prototype{};
+		Vec3 pos{};
 	};
 };

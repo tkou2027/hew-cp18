@@ -27,11 +27,30 @@ namespace hoge
 			STAGE_0,
 			STAGE_1,
 			STAGE_2,
-			NUM // total
+			NUM
+		};
+		struct WorldBoundary {
+			int min_x{ 0 };
+			int min_y{ 0 };
+			int min_z{ 0 };
+			int max_x{ 0 };
+			int max_y{ 0 };
+			int max_z{ 0 };
 		};
 		void Initialize();
 		void Finalize();
 		void SetConfig(WorldConfigName name);
+
+		// getters
+		float GetHeight() const { return m_height; }
+		float GetWidth() const { return m_width; }
+		float GetDepth() const { return m_depth; }
+		WorldBoundary GetBoundary() const { return m_boundary; }
+
+		// get block info
+		bool GetBlockInfoAt(int x, int y, int z, BlockInfo& block_info) const;
+		bool GetVisibleBlockInfoAt(int x, int y, int z, BlockInfo& block_info) const;
+		bool GetActiveBlockInfoAt(int x, int y, int z, BlockInfo& block_info) const;
 	private:
 		void InitializeBlockPrototypes();
 		void InitializeConfigs();
@@ -43,6 +62,7 @@ namespace hoge
 		int m_width_depth{ 0 };
 		std::unique_ptr<Block[]> m_map;
 		std::unique_ptr<int[]> m_map_height;
+		WorldBoundary m_boundary;
 
 		std::array<BlockPrototype, static_cast<size_t>(BlockType::NUM)> m_block_prototypes;
 		std::array<WorldConfig, static_cast<size_t>(WorldConfigName::NUM)> m_world_configs;

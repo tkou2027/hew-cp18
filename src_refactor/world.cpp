@@ -20,6 +20,11 @@ namespace hoge
 		m_width = config.m_width;
 		m_depth = config.m_depth;
 		m_width_depth = m_width * m_depth;
+		// TODO: better boundary for larger maps
+		m_boundary = {
+			0, 0, 0,
+			m_width, m_height, m_depth
+		};
 		// allocate memory
 		m_map = std::make_unique<Block[]>(m_width_depth * m_height);
 		m_map_height = std::make_unique<int[]>(m_width_depth);
@@ -40,6 +45,47 @@ namespace hoge
 				}
 			}
 		}
+	}
+
+	bool World::GetBlockInfoAt(int x, int y, int z, BlockInfo& block_info) const
+	{
+		if (x >= 0 && x < m_width
+			&& y >= 0 && y < m_height
+			&& z >= 0 && z < m_depth)
+		{
+			block_info.block = m_map.get() + (y * m_width_depth + z * m_width + x);
+			block_info.block_prototype = m_block_prototypes[static_cast<size_t>(block_info.block->type)];
+			block_info.pos = Vec3{ x, y, z };
+			return true;
+		}
+		block_info.block = nullptr;
+		return false;
+	}
+
+	bool World::GetVisibleBlockInfoAt(int x, int y, int z, BlockInfo& block_info)  const
+	{
+		bool in_boundary = GetBlockInfoAt(x, y, z, block_info);
+		if (!in_boundary) {
+			return false;
+		}
+		bool visible = block_info.block_prototype.view_type != BlockViewType::AIR;
+		if (!visible) {
+			block_info.block = nullptr;
+		}
+		return visible;
+	}
+
+	bool World::GetActiveBlockInfoAt(int x, int y, int z, BlockInfo& block_info)  const
+	{
+		bool in_boundary = GetBlockInfoAt(x, y, z, block_info);
+		if (!in_boundary) {
+			return false;
+		}
+		bool active = block_info.block->status == BlockStatus::ACTIVE;
+		if (!active) {
+			block_info.block = nullptr;
+		}
+		return active;
 	}
 
 	// Initialize Utils ========
